@@ -1,4 +1,5 @@
 // function that receives input and display data dynamically
+const fs = require('fs');
 const generatePage = (name, github) => {
 return `
 <!DOCTYPE html>
@@ -25,8 +26,10 @@ const profileDataArgs = process.argv.slice(2, process.argv.length);
 
 const [name, github] = profileDataArgs;
 
-console.log(name, github);
-console.log(generatePage(name, github));
+false.writeFile('index.html', generatePage(name, github), err => {
+    if(err) throw err;
+    console.log('Portfolio complete!');
+});
 
 
 
