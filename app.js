@@ -1,5 +1,10 @@
 // capturing data with Inquirer
-const { truncate } = require('fs');
+// function that receives input and display data dynamically
+ const fs = require('fs');
+
+// receives exported functions
+ const generatePage = require('./src/page-template');
+
 const inquirer = require('inquirer');
 
 // wrapping object array prompt inside a promptUser function to be invoked on demand
@@ -130,30 +135,28 @@ const promptProject = portfolioData => {
         }else{
             return portfolioData;
         }
-    }) 
+    }); 
 };
+
+// promptUser function call
 promptUser()
 // .then(answers => console.log(answers))
 .then(promptProject)
 // .then(projectAnswers => console.log(projectAnswers))
 .then(portfolioData => {
-    console.log(portfolioData);
+const pageHTML = generatePage(portfolioData);
+
+// displays file to browser
+//fs.writeFile('index.html', pageHTML, err => {
+    //if(err) throw new Error(err);
+    //console.log('Page created! Check out index.html in this directory to see it!');
+     //});
 });
 
 
-// function that receives input and display data dynamically
-// const fs = require('fs');
 
-// receives exported functions
-// const generatePage = require('./src/page-template.js');
 
-// const pageHTML = generatePage(name, github);
 
-// displays file to browser
-// fs.writeFile('index.html', pageHTML, err => {
-    // if(err) throw err;
-   // console.log('Portfolio complete!');
-// });
 
 
 
