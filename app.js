@@ -3,10 +3,8 @@ const inquirer = require('inquirer');
 
 // wrapping object array prompt inside a promptUser function to be invoked on demand
 const promptUser = () => {
-return inquirer.prompt.then(projectData => {
-    portfolioData.projects.push(projectData);
-}
-    [
+return inquirer.prompt
+    ([
     {
         type: 'input',
         name: 'name',
