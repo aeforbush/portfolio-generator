@@ -28,7 +28,7 @@ const promptProject = portfolioData => {
     if (!portfolioData.projects) {
     // array to hold multiple projects in the portfolioData object
     portfolioData.projects = [];
-    };
+    }
     console.log(`
     ================
     Add a New Project
@@ -67,13 +67,24 @@ const promptProject = portfolioData => {
             name: 'confirmAddProject',
             message: 'Would you like to enter another project?',
             default: false
-        }    
+        }  
+        .then(projectData => {
+            portfolioData.projects.push(projectData);
+            if (projectData.confirmAddProject) {
+                return promptProject(portfolioData);
+            }else{
+                return portfolioData;
+            }
+        })  
     ]);
 };
 promptUser()
-.then(answers => console.log(answers))
+// .then(answers => console.log(answers))
 .then(promptProject)
-.then(projectAnswers => console.log(projectAnswers));
+// .then(projectAnswers => console.log(projectAnswers))
+.then(portfolioData => {
+    console.log(portfolioData);
+});
 
 
 // function that receives input and display data dynamically
