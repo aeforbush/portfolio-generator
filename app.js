@@ -11,9 +11,11 @@ const profileDataArgs = process.argv.slice(2);
 
 const [name, github] = profileDataArgs;
 
+const pageHTML = generatePage(name, github);
+
 
 // displays file to browser
-fs.writeFile('index.html', generatePage(name, github), err => {
+fs.writeFile('index.html', pageHTML, err => {
     if(err) throw err;
     console.log('Portfolio complete!');
 });
