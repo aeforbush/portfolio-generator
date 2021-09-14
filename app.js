@@ -1,31 +1,37 @@
+// capturing data with Inquirer
+const inquirer = require('inquirer');
+inquirer
+.prompt([
+    {
+        type: 'input',
+        name: 'name',
+        message: 'What is your name?'
+    }
+])
+.then(answers => console.log(answers));
 // function that receives input and display data dynamically
-const fs = require('fs');
+// const fs = require('fs');
 
 // receives exported functions
-const generatePage = require('./src/page-template.js');
+// const generatePage = require('./src/page-template.js');
 
-// profileDataArgs holds the user command-line arguments (argv holds array)
-// const profileDataArgs = process.argv.slice(2, process.argv.length);
-const profileDataArgs = process.argv.slice(2);
-
-
-const [name, github] = profileDataArgs;
-
-const pageHTML = generatePage(name, github);
-
+// const pageHTML = generatePage(name, github);
 
 // displays file to browser
-fs.writeFile('index.html', pageHTML, err => {
-    if(err) throw err;
-    console.log('Portfolio complete!');
-});
+// fs.writeFile('index.html', pageHTML, err => {
+    // if(err) throw err;
+   // console.log('Portfolio complete!');
+// });
 
 
 
 
 
 
-
+/*// profileDataArgs holds the user command-line arguments (argv holds array)
+// const profileDataArgs = process.argv.slice(2, process.argv.length);
+const profileDataArgs = process.argv.slice(2);
+const [name, github] = profileDataArgs;*/
 
 
 
