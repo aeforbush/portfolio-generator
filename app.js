@@ -165,6 +165,7 @@ promptUser()
 .then(portfolioData => {
 const pageHTML = generatePage(portfolioData);
 
+
 // displays file to browser
 fs.writeFile('index.html', pageHTML, err => {
     if(err) throw new Error(err);
