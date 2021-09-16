@@ -1,9 +1,27 @@
+// mock data for testing 
+/*const mockData = {
+    name: 'Aimee',
+    github: 'aeforbush',
+    confirmAbout: true,
+    about: 'I love coding!',
+    projects: [
+      {
+        name: 'portfolio generator',
+        description: 'using node to take input and display a portfolio page',
+        languages: [],
+        link: 'aeforbush',
+        feature: false,
+        confirmAddProject: false
+      }
+    ]
+  }*/
+
 // capturing data with Inquirer
 // function that receives input and display data dynamically
- const fs = require('fs');
+const fs = require('fs');
 
 // receives exported functions
- const generatePage = require('./src/page-template');
+const generatePage = require('./src/page-template');
 
 const inquirer = require('inquirer');
 
@@ -138,6 +156,7 @@ const promptProject = portfolioData => {
     }); 
 };
 
+
 // promptUser function call
 promptUser()
 // .then(answers => console.log(answers))
@@ -147,11 +166,14 @@ promptUser()
 const pageHTML = generatePage(portfolioData);
 
 // displays file to browser
-//fs.writeFile('index.html', pageHTML, err => {
-    //if(err) throw new Error(err);
+fs.writeFile('index.html', pageHTML, err => {
+    if(err) throw new Error(err);
     //console.log('Page created! Check out index.html in this directory to see it!');
-     //});
+     });
 });
+
+// temporary mock function call
+// const pageHTML = generatePage(mockData);
 
 
 
