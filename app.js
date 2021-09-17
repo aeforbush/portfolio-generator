@@ -19,11 +19,10 @@
 // capturing data with Inquirer
 // function that receives input and display data dynamically
 const fs = require('fs');
-
+const inquirer = require('inquirer');
 // receives exported functions
 const generatePage = require('./src/page-template');
 
-const inquirer = require('inquirer');
 
 // wrapping object array prompt inside a promptUser function to be invoked on demand
 const promptUser = () => {
@@ -46,8 +45,8 @@ return inquirer.prompt
         type: 'input',
         name: 'github',
         message: 'Enter your GitHub Username',
-        validate: userName => {
-            if (userName) {
+        validate: githubInput => {
+            if (githubInput) {
                 return true;
             }else{
                 console.log('Please enter your GitHub Username.');
@@ -65,28 +64,23 @@ return inquirer.prompt
         type: 'input',
         name: 'about',
         message: 'Provide some information about yourself:',
-        when: ({confirmAbout}) => {
-            if (confirmAbout) {
-                return true;
-            }else{
-                return false;
-            }
-        }
+        when: ({confirmAbout}) => confirmAbout
     }
 ]);
 };
 
 const promptProject = portfolioData => {
-    // If there's no 'projects' array property, create one (initialized once)
-    if (!portfolioData.projects) {
-    // array to hold multiple projects in the portfolioData object
-    portfolioData.projects = [];
-    }
     console.log(`
     ================
     Add a New Project
     ================
     `);
+    // If there's no 'projects' array property, create one (initialized once)
+    if (!portfolioData.projects) {
+    // array to hold multiple projects in the portfolioData object
+    portfolioData.projects = [];
+    }
+
     return inquirer.prompt([
         {
             type: 'input',
@@ -159,19 +153,16 @@ const promptProject = portfolioData => {
 
 // promptUser function call
 promptUser()
-// .then(answers => console.log(answers))
 .then(promptProject)
-// .then(projectAnswers => console.log(projectAnswers))
 .then(portfolioData => {
 const pageHTML = generatePage(portfolioData);
 
 
 // displays file to browser
 fs.writeFile('./dist/index.html', pageHTML, err => {
-    if (err) {
-        console.log(err);
-        return;
-    }
+    if (err) throw new Error (err);
+    console.log('Page created!');
+    
     console.log('Page created!');
     fs.copyFile('./src/style.css', './dist/style.css', err => {
         if (err) {
@@ -181,6 +172,8 @@ fs.writeFile('./dist/index.html', pageHTML, err => {
         console.log('Style sheet copied successfully!');
     });
 });
+});
+
 
 // temporary mock function call
 // const pageHTML = generatePage(mockData);
