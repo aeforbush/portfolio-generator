@@ -16,9 +16,8 @@
     ]
   }*/
 
-// capturing data with Inquirer
-// function that receives input and display data dynamically
-const fs = require('fs');
+// importing data from generate-site
+const {writeFile, copyFile} = require('./utils/generate-site.js');
 const inquirer = require('inquirer');
 // receives exported functions
 const generatePage = require('./src/page-template');
@@ -26,7 +25,7 @@ const generatePage = require('./src/page-template');
 
 // wrapping object array prompt inside a promptUser function to be invoked on demand
 const promptUser = () => {
-return inquirer.prompt
+return prompt
     ([
     {
         type: 'input',
@@ -81,7 +80,7 @@ const promptProject = portfolioData => {
     portfolioData.projects = [];
     }
 
-    return inquirer.prompt([
+    return prompt([
         {
             type: 'input',
             name: 'name',
@@ -155,24 +154,22 @@ const promptProject = portfolioData => {
 promptUser()
 .then(promptProject)
 .then(portfolioData => {
-const pageHTML = generatePage(portfolioData);
-
-
-// displays file to browser
-fs.writeFile('./dist/index.html', pageHTML, err => {
-    if (err) throw new Error (err);
-    console.log('Page created!');
-    
-    console.log('Page created!');
-    fs.copyFile('./src/style.css', './dist/style.css', err => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.log('Style sheet copied successfully!');
-    });
+return generatePage(portfolioData);
+})
+.then(pageHTML => {
+    return writeFile(pageHTML);
+})
+.then(writeFileResponse => {
+    console.log(writeFileResponse);
+    return copyFile();
+})
+.then(copyFileResponse => {
+    console.log(copyFileResponse);
+})
+.catch(err => {
+    console.log(err);
 });
-});
+
 
 
 // temporary mock function call
@@ -188,32 +185,7 @@ fs.writeFile('./dist/index.html', pageHTML, err => {
 
 
 
-/*// profileDataArgs holds the user command-line arguments (argv holds array)
-// const profileDataArgs = process.argv.slice(2, process.argv.length);
-const profileDataArgs = process.argv.slice(2);
-const [name, github] = profileDataArgs;*/
 
 
 
 
-
-
-
-
-
-
-
-/*// const profileDataArgs = process.argv.slice(2, process.argv.length);
-const profileDataArgs = process.argv.slice(2);
-// console.log(profileDataArgs);
-
-const printProfileData = profileDataArr => {
-    // this...
-    for (let i =0; i < profileDataArr.length; i += 1) {
-        console.log(profileDataArr[i]);
-    }
-    console.log('===========');
-    // Is the same as this...
-  profileDataArr.forEach(profileItem => console.log(profileItem));
-};
-printProfileData(profileDataArgs);*/
