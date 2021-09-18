@@ -7,7 +7,7 @@ const {writeFile, copyFile} = require('./utils/generate-site.js');
 
 // wrapping object array prompt inside a promptUser function to be invoked on demand
 const promptUser = () => {
-return prompt
+return inquirer.prompt
     ([
     {
         type: 'input',
@@ -50,7 +50,7 @@ return prompt
 ]);
 };
 
-const promptProject = portfolioData => {
+const promptProject = (portfolioData) => {
     console.log(`
     ================
     Add a New Project
