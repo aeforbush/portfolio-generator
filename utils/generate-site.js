@@ -1,6 +1,5 @@
 // importing fs file
 const fs = require('fs');
-const { resolve } = require('path');
 
 // js promise
 const writeFile = fileContent => {
@@ -23,16 +22,16 @@ const writeFile = fileContent => {
 
 };
 
-const copyFile = copiedFiles => {
+const copyFile = () => {
     return new Promise((resolve, reject) => {
-        fs.copyFile('./dist/app.js', copiedFiles, err => {
+        fs.copyFile('./src/style.css', './dist/app.js', err => {
             if (err) {
                 reject(err);
                 return;
             }
             resolve({
                 ok: true,
-                message: "Filed Copied!"
+                message: "Stylesheet created!"
             });
         });
     });

@@ -1,26 +1,8 @@
-// mock data for testing 
-/*const mockData = {
-    name: 'Aimee',
-    github: 'aeforbush',
-    confirmAbout: true,
-    about: 'I love coding!',
-    projects: [
-      {
-        name: 'portfolio generator',
-        description: 'using node to take input and display a portfolio page',
-        languages: [],
-        link: 'aeforbush',
-        feature: false,
-        confirmAddProject: false
-      }
-    ]
-  }*/
-
 // importing data from generate-site
-const {writeFile, copyFile} = require('./utils/generate-site.js');
 const inquirer = require('inquirer');
 // receives exported functions
 const generatePage = require('./src/page-template');
+const {writeFile, copyFile} = require('./utils/generate-site.js');
 
 
 // wrapping object array prompt inside a promptUser function to be invoked on demand
@@ -80,7 +62,7 @@ const promptProject = portfolioData => {
     portfolioData.projects = [];
     }
 
-    return prompt([
+    return inquirer.prompt([
         {
             type: 'input',
             name: 'name',
